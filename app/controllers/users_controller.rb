@@ -1,6 +1,7 @@
 # app/controllers/users_controller.rb
 
 class UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
     before_action :set_user, only: [:show, :edit, :update, :destroy]
   
     # List all users
@@ -53,9 +54,9 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
-  
+  private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone, :id_or_passport, :email)
+      params.permit(:first_name, :last_name, :phone, :id_or_passport, :email)
     end
   end
   
